@@ -14,13 +14,6 @@ var color_sliders = {
   alignItem: 'center'
 }
 
-var atmos_sliders = {
-  background: "#fff",
-  padding: 30,
-  marginLeft: 30,
-  width: 650,
-}
-
 var img_style = {
   margin: 20,
   alignContent: 'center'
@@ -185,24 +178,24 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Smart Incubator</h1>
         </header>
-        <div style={atmos_sliders}>
-        TEMPERATURE
+        <div className="atmos_sliders">
+        <div style={{alignContent: 'left'}} >SET TEMPERATURE</div>
           <Slider
           min={0}
           max={100}
           defaultValue={30}
           marks={marks}
-          onChange={(val) => this.change_val(val, "Temperature")}  
+          onChange={(val) => this.change_val(val, "setTemperature")}  
           />
         </div>
-        <div style={atmos_sliders}>
-        HUMIDITY
+        <div className="atmos_sliders">
+        SET HUMIDITY
           <Slider
           min={0}
           max={100}
           defaultValue={70}
           marks={marks_hum}
-          onChange={(val) => this.change_val(val, "Humidity")}  
+          onChange={(val) => this.change_val(val, "setHumidity")}  
           />
         </div>
         <div>
@@ -214,7 +207,7 @@ class App extends Component {
           max={255}
           defaultValue={200}
           onChange={(val) => this.change_val(val, "lightR")}
-          minimumTrackStyle={{ backgroundColor: 'red' }}
+          trackStyle={{ backgroundColor: 'red' }}
           handleStyle={{
             borderColor: 'red',
             backgroundColor: 'red'
@@ -227,7 +220,7 @@ class App extends Component {
           max={255}
           defaultValue={200}
           onChange={(val) => this.change_val(val, "lightG")}
-          minimumTrackStyle={{ backgroundColor: 'green' }}
+          trackStyle={{ backgroundColor: 'green' }}
           handleStyle={{
             borderColor: 'green',
             backgroundColor: 'green'
@@ -240,7 +233,7 @@ class App extends Component {
           max={255}
           defaultValue={200}
           onChange={(val) => this.change_val(val, "lightB")} 
-          minimumTrackStyle={{ backgroundColor: 'blue' }}
+          trackStyle={{ backgroundColor: 'blue' }}
           handleStyle={{
             borderColor: 'blue',
             backgroundColor: 'blue'
@@ -252,7 +245,6 @@ class App extends Component {
         </div>
         <Chart chartData={this.state.chartData} />
         <Chart chartData={this.state.chartData} />
-        
       </div>
     );
   }
