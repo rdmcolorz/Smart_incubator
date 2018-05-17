@@ -3,14 +3,18 @@ import mush_logo from './img/logo_mycotronics.png';
 import './App.css';
 import * as firebase from 'firebase';
 import Chart from './Components/Chart';
+import ReactChartkick, { LineChart } from 'react-chartkick'
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-var dataHours = 3;
-var boxName="myco-prototype";
+var dataHours = 2;
+var boxName = "myco-prototype";
+var timezone = " PDT"
 
 var img_style = {
 	margin: 20,
+  width: 640,
+  height: 480,
 	alignContent: 'center'
 }
 
@@ -56,51 +60,43 @@ const marks_color = {
 }
 
 let imageArray = [];
+let tempData = {"name":"Temperature", "data":{}};
+let humData = {"name":"Humidity", "data":{}};
+let dataSet = [tempData, humData];
 
 function myFunc(half_minutes) {
   if (half_minutes === 0)
-  {
     return "Present";
-  }
   else if (half_minutes === 1)
-  {
     return "30 Seconds Ago";
-  }
   else if (half_minutes === 2 || half_minutes === 3)
-  {
     return "1 Minute Ago";
-  }
   var minutes = Math.floor(half_minutes/2);
   if (minutes < 60)
-  {
     return minutes + " Minutes Ago";
-  }
   else
   {
     var hours = Math.floor(minutes / 60);
     minutes %= 60;
     var mstr = minutes + " Min ";
     if (minutes === 0)
-    {
       mstr = "";
-    }
     if (hours === 1)
-    {
        return hours + " Hr " + mstr + "Ago";
-    }
     return hours + " Hrs " + mstr + "Ago";
   }
 }
 
 class App extends Component {
+  componentDidMount(){
+    document.title = "MycoTronics"
+  }
 	constructor(props) {
 		super(props);
 		this.state = {
 			database: null,
-			chartData: {},
-			pic: null,
+			pic: "https://upload.wikimedia.org/wikipedia/commons/a/a8/42_Silicon_Valley_Logo.svg",
 			caption: "Present",
-			data: null,
 			tmp: 30,
 			hum: 95,
 			r_val: 0,
@@ -177,19 +173,25 @@ class App extends Component {
 		const snapshot_temp = (data) => {
 			curr_temp = data.val();
 			var key = Object.keys(curr_temp);
+      var dk = data.key.replace("_", " ") + timezone;
+      var new_temp = curr_temp[key].toFixed(2);
 			this.setState({
-				tmp: curr_temp[key].toFixed(2),
-				tmp_time: data.key
+				tmp: new_temp,
+				tmp_time: dk
 			});
+      tempData["data"][dk] = new_temp;
 		}
 
 		const snapshot_hum = (data) => {
 			curr_hum = data.val();
 			var key = Object.keys(curr_hum);
+      var dk = data.key.replace("_", " ") + timezone;
+      var new_hum = curr_hum[key].toFixed(2);
 			this.setState({
-				hum: curr_hum[key].toFixed(2),
-				hum_time: data.key,
+				hum: new_hum,
+				hum_time: dk
 			});
+      humData["data"][dk] = new_hum;
 		}
 
     const snapshot_r = (data) => {
@@ -213,8 +215,8 @@ class App extends Component {
       });
     }
 
-		box_temp.limitToLast(120 * dataHours).on('child_added', snapshot_temp);
-		box_humid.limitToLast(120 * dataHours).on('child_added', snapshot_hum);
+		box_temp.limitToLast(60).on('child_added', snapshot_temp);
+		box_humid.limitToLast(60).on('child_added', snapshot_hum);
 		box_pic.limitToLast(120 * dataHours).on('child_added', snapshot_pic);
     box_r.limitToLast(1).on('value', snapshot_r);
     box_g.limitToLast(1).on('value', snapshot_g);
@@ -252,11 +254,12 @@ class App extends Component {
 
 
 				<div>
-				<img style={img_style} src={this.state.pic} alt="camera" />
+				  <img style={img_style} src={this.state.pic} alt="camera" />
 				</div>
 				<span>
 					{this.state.caption}
 				</span>
+
         <div id="controls">
           <div id="imgSliders">
     				<div className="img_slider center half_w_slider">
@@ -341,11 +344,16 @@ class App extends Component {
           </div>
         </div>
 
-				<div style={{margin: 10, padding: 10}}>
-				  Current Temperature: {this.state.tmp}°C / Current Humidity: {this.state.hum}%
-				</div>
-				<Chart chartData={this.state.chartData} />
-        <Chart chartData={this.state.chartData} />
+				<pre>Current Temperature: {this.state.tmp}°C        Current Humidity: {this.state.hum}%</pre>
+
+        <LineChart 
+          data={dataSet}
+          refresh={2}
+          min={0}
+          max={100}
+          height={300}
+          colors={["#C10", "#08D"]}
+        />
 			</div>
 		);
 	}
