@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import mush_logo from './img/logo_mycotronics.png';
 import './App.css';
 import * as firebase from 'firebase';
 import Chart from './Components/Chart';
@@ -109,7 +109,7 @@ class App extends Component {
 	}
 
 	componentWillMount() {
- /*		this.getChartData(); */
+    this.getChartData()
 		this.initFirebase();
 		this.getData();
 	}
@@ -221,8 +221,9 @@ class App extends Component {
     box_r.limitToLast(1).on('value', snapshot_r);
     box_g.limitToLast(1).on('value', snapshot_g);
     box_b.limitToLast(1).on('value', snapshot_b);
-	}
-	/* getChartData() {
+  }
+  
+	getChartData() {
 		//ajax call here
 		this.setState({
 			chartData: {
@@ -236,7 +237,7 @@ class App extends Component {
 				backgroundColor: "rgba(255,0,144,0)",
 				}
 		});
-	} */
+	}
  
 	
 	render() {
@@ -244,12 +245,14 @@ class App extends Component {
 		return (
 			<div className="App">
 				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<h1 className="App-title">MycoTronics</h1>
+					<img src={mush_logo} className="App-logo" alt="logo" />
+					<h1 className="brand">mycotronics</h1>
+          <hr className="line"/>
+          <div className="App-title">- Smart Incubator -</div>
 				</header>
 				
 
-				
+
 				<div>
 				  <img style={img_style} src={this.state.pic} alt="camera" />
 				</div>
