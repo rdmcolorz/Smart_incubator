@@ -1,3 +1,7 @@
+:root {
+  --slider-padding: 1.5em;
+}
+
 .App {
   text-align: center;
 }
@@ -22,17 +26,27 @@
   font-size: large;
 }
 
-.atmos_sliders {
+.atmos_slider {
   background: #fff;
-  padding: 30px;
-  margin-left: 30;
-  width: 650;
+  padding: var(--slider-padding);
+}
+
+.center{
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .half_w_slider{
   width: 50%;
-  margin-left: auto;
-  margin-right: auto;
+}
+
+.color_slider{
+  background: "#fff";
+  padding: var(--slider-padding);
+}
+
+.img_slider{
+  padding: var(--slider-padding);
 }
 
 @keyframes App-logo-spin {
