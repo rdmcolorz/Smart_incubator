@@ -11,13 +11,6 @@ var dataHours = 2;
 var boxName = "myco-prototype";
 var timezone = " PDT"
 
-var img_style = {
-	margin: 20,
-  width: 640,
-  height: 480,
-	alignContent: 'center'
-}
-
 const marks = {
 	15: <strong>0°C</strong>,
 	60: {
@@ -56,7 +49,7 @@ const marks_img = {
 const marks_color = {
 	0: "None",
 	127: "Half",
-	255: "Full"
+	254: "Full"
 }
 
 let imageArray = [];
@@ -109,7 +102,6 @@ class App extends Component {
 	}
 
 	componentWillMount() {
-    this.getChartData()
 		this.initFirebase();
 		this.getData();
 	}
@@ -222,29 +214,8 @@ class App extends Component {
     box_g.limitToLast(1).on('value', snapshot_g);
     box_b.limitToLast(1).on('value', snapshot_b);
   }
-  
-	getChartData() {
-		//ajax call here
-		this.setState({
-			chartData: {
-        labels: ['Iowa1', 'Taiwan', 'Bay area', 'Washington'],
-				datasets:[
-						{
-              backgroundColor: 'skyblue',
-              borderColor: 'skyblue',
-              fill: false,
-              lineTension: 0.3,
-							label: 'Population',
-							data: [1222, 4444, 25325, 53252]
-						}
-				],
-				backgroundColor: "rgba(255,0,144,0)",
-				}
-		});
-	}
 	
 	render() {
-    //console.log(this.state.chartData)
 		return (
 			<div className="App">
 				<header className="App-header">
@@ -253,11 +224,8 @@ class App extends Component {
           <hr className="line"/>
           <div className="App-title">- Smart Incubator -</div>
 				</header>
-				
-
-
 				<div>
-				  <img style={img_style} src={this.state.pic} alt="camera" />
+          <img className="img_style" src={this.state.pic} alt="camera" />
 				</div>
 				<span>
 					{this.state.caption}
@@ -303,7 +271,7 @@ class App extends Component {
               <Slider
               id="rSlider" 
     					min={0}
-    					max={255}
+    					max={254}
     					marks={marks_color}
     					defaultValue={128}
     					onChange={(val) => this.change_val(val, "lightR")}
@@ -318,7 +286,7 @@ class App extends Component {
     					<Slider 
               id="gSlider" 
     					min={0}
-    					max={255}
+    					max={254}
     					marks={marks_color}
     					defaultValue={128}
     					onChange={(val) => this.change_val(val, "lightG")}
@@ -333,7 +301,7 @@ class App extends Component {
     					<Slider
               id="bSlider" 
     					min={0}
-    					max={255}
+    					max={254}
     					marks={marks_color}
     					defaultValue={128}
     					onChange={(val) => this.change_val(val, "lightB")} 

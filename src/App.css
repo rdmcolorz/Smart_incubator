@@ -3,6 +3,14 @@
   --slider-padding: 1.5em;
 }
 
+.img_style {
+  padding: 20px;
+  margin: 20px;
+  width: 640px;
+  height: 480px;
+	align-content: 'center';
+}
+
 .App {
   text-align: center;
 }
