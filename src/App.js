@@ -225,21 +225,24 @@ class App extends Component {
 		//ajax call here
 		this.setState({
 			chartData: {
-				labels: ['Iowa1', 'Taiwan', 'Bay area', 'Washington'],
+        labels: ['Iowa1', 'Taiwan', 'Bay area', 'Washington'],
 				datasets:[
 						{
-								label: 'Population',
-								data: [1222, 4444, 25325, 53252]
+              backgroundColor: 'skyblue',
+              borderColor: 'skyblue',
+              fill: false,
+              lineTension: 0.3,
+							label: 'Population',
+							data: [1222, 4444, 25325, 53252]
 						}
 				],
 				backgroundColor: "rgba(255,0,144,0)",
 				}
 		});
 	}
- 
 	
 	render() {
-		//console.log(this.state.chartData)
+    //console.log(this.state.chartData)
 		return (
 			<div className="App">
 				<header className="App-header">
