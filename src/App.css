@@ -4,9 +4,34 @@
 }
 
 .demo {
-  width: 20px;
-  height: 20px;
-  padding: 20px;
+  font-size: 15px;
+  color: white;
+  width: 70px;
+  height: 70px;
+  margin: 20px;
+  background-color: skyblue;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+}
+
+.demo:hover {
+  font-size: 15px;
+  width: 70px;
+  height: 70px;
+  margin: 20px;
+  background-color: skyblue;
+  border: none;
+  outline: none;
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 8px 10px 0 rgba(0,0,0,0.19);
+  border-radius: 50%;
+}
+
+.demo:active {
+  font-size: 15px;
+  background-color: skyblue;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
 }
 
 .img_style {

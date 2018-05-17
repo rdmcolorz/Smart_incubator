@@ -321,8 +321,8 @@ class App extends Component {
           </div>
         </div>
         <div>
-          <button clasName="demo" onClick={() => this.setDemo(true)}>Start Demo Mode</button>
-          <button clasName="demo" onClick={() => this.setDemo(false)}>End Demo Mode</button>
+          <button className="demo" onClick={() => this.setDemo(true)}>Start Demo</button>
+          <button className="demo" onClick={() => this.setDemo(false)}>End Demo</button>
         </div>
 				<pre>Current Temperature: {this.state.tmp}°C        Current Humidity: {this.state.hum}%</pre>
 
