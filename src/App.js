@@ -4,7 +4,7 @@ import './App.css';
 import * as firebase from 'firebase';
 import Chart from './Components/Chart';
 import ReactChartkick, { LineChart } from 'react-chartkick'
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 var dataHours = 3;
@@ -236,53 +236,52 @@ class App extends Component {
 				<span>
 					{this.state.caption}
 				</span>
-
         <div id="controls">
           <div id="imgSliders">
     				<div className="img_slider center half_w_slider">
     					<Slider
-              id="imgSlider" 
-    					min={0}
-    					max={imageArray.length - 1}
-    					marks={marks_img}
-    					defaultValue={0}
-    					onChange={(val) => this.changeImg(val)}
+                id="imgSlider" 
+                min={0}
+                max={imageArray.length - 1}
+                marks={marks_img}
+                defaultValue={0}
+                onChange={(val) => this.changeImg(val)}
     					/>
     				</div>
           </div>
           <div id="climateSliders">
             <div className="atmos_slider center half_w_slider">
               <Slider
-              id="tSlider" 
-              min={15}
-              max={60}
-              defaultValue={this.state.tmp}
-              marks={marks}
-              onChange={(val) => this.change_val(val, "setTemperature")}  
+                id="tSlider"
+                min={15}
+                max={60}
+                defaultValue={this.state.tmp}
+                marks={marks}
+                onChange={(val) => this.change_val(val, "setTemperature")}  
               />
             </div>
             <div className="atmos_slider center half_w_slider">
               <Slider
-              id="hSlider" 
-              min={5}
-              max={95}
-              defaultValue={this.state.hum}
-              marks={marks_hum}
-              onChange={(val) => this.change_val(val, "setHumidity")} 
+                id="hSlider" 
+                min={5}
+                max={95}
+                defaultValue={this.state.hum}
+                marks={marks_hum}
+                onChange={(val) => this.change_val(val, "setHumidity")} 
               />
             </div>
           </div>
           <div id="colorSliders">
     				<div className="color_slider center half_w_slider">
               <Slider
-              id="rSlider" 
-    					min={0}
-    					max={254}
-    					marks={marks_color}
-    					defaultValue={128}
-    					onChange={(val) => this.change_val(val, "lightR")}
-    					trackStyle={{ backgroundColor: 'red' }}
-    					handleStyle={{
+                id="rSlider" 
+    					  min={0}
+    					  max={254}
+    					  marks={marks_color}
+    					  defaultValue={128}
+    					  onChange={(val) => this.change_val(val, "lightR")}
+    					  trackStyle={{ backgroundColor: 'red' }}
+    				  	handleStyle={{
     						borderColor: 'red',
     						backgroundColor: 'red'
     					}}					
@@ -290,32 +289,32 @@ class App extends Component {
             </div>
             <div className="color_slider center half_w_slider">
     					<Slider 
-              id="gSlider" 
-    					min={0}
-    					max={254}
-    					marks={marks_color}
-    					defaultValue={128}
-    					onChange={(val) => this.change_val(val, "lightG")}
-    					trackStyle={{ backgroundColor: 'green' }}
-    					handleStyle={{
+                id="gSlider" 
+                min={0}
+                max={254}
+                marks={marks_color}
+                defaultValue={128}
+                onChange={(val) => this.change_val(val, "lightG")}
+                trackStyle={{ backgroundColor: 'green' }}
+                handleStyle={{
     						borderColor: 'green',
     						backgroundColor: 'green'
-    					}}
+    					  }}
     					/>
             </div>
             <div className="color_slider center half_w_slider">
     					<Slider
-              id="bSlider" 
-    					min={0}
-    					max={254}
-    					marks={marks_color}
-    					defaultValue={128}
-    					onChange={(val) => this.change_val(val, "lightB")} 
-    					trackStyle={{ backgroundColor: 'blue' }}
-    					handleStyle={{
+                id="bSlider" 
+                min={0}
+                max={254}
+                marks={marks_color}
+                defaultValue={128}
+                onChange={(val) => this.change_val(val, "lightB")} 
+                trackStyle={{ backgroundColor: 'blue' }}
+                handleStyle={{
     						borderColor: 'blue',
     						backgroundColor: 'blue'
-    					}}
+    					  }}
     					/>
     				</div>
           </div>
