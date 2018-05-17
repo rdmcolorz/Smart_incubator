@@ -7,7 +7,7 @@ import ReactChartkick, { LineChart } from 'react-chartkick'
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-var dataHours = 2;
+var dataHours = 3;
 var boxName = "myco-prototype";
 var timezone = " PDT"
 
