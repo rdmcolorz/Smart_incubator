@@ -3,6 +3,12 @@
   --slider-padding: 1.5em;
 }
 
+.demo {
+  width: 20px;
+  height: 20px;
+  padding: 20px;
+}
+
 .img_style {
   padding: 20px;
   margin: 20px;

@@ -121,6 +121,12 @@ class App extends Component {
 		console.log('initialized firebase')
 	}
 
+  setDemo = (val) => {
+    if (this.state.database)
+      this.state.database.ref('configs/' + boxName + '/demoMode').set(val);
+      console.log('set demo ' + val)
+	}
+
 	change_val = (val, name) => {
 		if (this.state.database)
 			this.state.database.ref('configs/' + boxName + '/' + name).set(val); 
@@ -314,7 +320,10 @@ class App extends Component {
     				</div>
           </div>
         </div>
-
+        <div>
+          <button clasName="demo" onClick={() => this.setDemo(true)}>Start Demo Mode</button>
+          <button clasName="demo" onClick={() => this.setDemo(false)}>End Demo Mode</button>
+        </div>
 				<pre>Current Temperature: {this.state.tmp}°C        Current Humidity: {this.state.hum}%</pre>
 
         <LineChart 
