@@ -113,7 +113,7 @@ class App extends Component {
 	}
 
 	componentWillMount() {
- /*		this.getChartData(); */
+    this.getChartData()
 		this.initFirebase();
 		this.getData();
 	}
@@ -177,18 +177,7 @@ class App extends Component {
 		const snapshot_temp = (data) => {
 			curr_temp = data.val();
 			var key = Object.keys(curr_temp);
-			//console.log(curr_temp[key]);
-			//console.log(data.key);
 			this.setState({
-				chartData: {
-					labels: data.key,
-					datasets: [
-						{
-							data: curr_temp[key].toFixed(2),
-						}
-					],
-					backgroundColor: "rgba(255,0,144,0)",
-				},
 				tmp: curr_temp[key].toFixed(2),
 				tmp_time: data.key
 			});
@@ -197,18 +186,7 @@ class App extends Component {
 		const snapshot_hum = (data) => {
 			curr_hum = data.val();
 			var key = Object.keys(curr_hum);
-			//console.log(curr_hum[key])
-			//console.log(data.key);
 			this.setState({
-				chartData: {
-					labels: data.key,
-					datasets: [
-						{
-							data: curr_hum[key].toFixed(2),
-						}
-					],
-					backgroundColor: "rgba(255,0,144,0)",
-				},
 				hum: curr_hum[key].toFixed(2),
 				hum_time: data.key,
 			});
@@ -241,8 +219,9 @@ class App extends Component {
     box_r.limitToLast(1).on('value', snapshot_r);
     box_g.limitToLast(1).on('value', snapshot_g);
     box_b.limitToLast(1).on('value', snapshot_b);
-	}
-	/* getChartData() {
+  }
+  
+	getChartData() {
 		//ajax call here
 		this.setState({
 			chartData: {
@@ -256,7 +235,7 @@ class App extends Component {
 				backgroundColor: "rgba(255,0,144,0)",
 				}
 		});
-	} */
+	}
  
 	
 	render() {
@@ -265,9 +244,9 @@ class App extends Component {
 			<div className="App">
 				<header className="App-header">
 					<img src={mush_logo} className="App-logo" alt="logo" />
-					<h1 className="App-title">mycotronics</h1>
+					<h1 className="brand">mycotronics</h1>
           <hr className="line"/>
-          <div className="App-title">Smart Incubator</div>
+          <div className="App-title">- Smart Incubator -</div>
 				</header>
 				
 
