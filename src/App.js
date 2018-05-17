@@ -135,7 +135,7 @@ class App extends Component {
 
 	change_val = (val, name) => {
 		if (this.state.database)
-			this.state.database.ref('configs/' + boxName + '/${name}').set(val); 
+			this.state.database.ref('configs/' + boxName + '/' + name).set(val); 
 	}
 
 	changeImg = (val) => {
@@ -265,11 +265,13 @@ class App extends Component {
 			<div className="App">
 				<header className="App-header">
 					<img src={mush_logo} className="App-logo" alt="logo" />
-					<h1 className="App-title">MycoTronics</h1>
+					<h1 className="App-title">mycotronics</h1>
+          <hr className="line"/>
+          <div className="App-title">Smart Incubator</div>
 				</header>
 				
 
-				
+
 				<div>
 				<img style={img_style} src={this.state.pic} alt="camera" />
 				</div>
