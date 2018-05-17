@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import mush_logo from './img/logo_mycotronics.png';
 import './App.css';
 import * as firebase from 'firebase';
 import Chart from './Components/Chart';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+
+var time = 0;
 
 var color_sliders = {
   background: "#fff",
@@ -20,30 +22,31 @@ var img_style = {
 }
 
 const marks = {
-  0: <strong>0°C</strong>,
+  5: <strong>5°C</strong>,
+  10: '10°C',
   20: '20°C',
+  30: '30°C',
   40: '40°C',
-  60: '60°C',
-  80: '80°C',
-  100: {
+  50: '50°C',
+  60: {
     style: {
       color: 'red',
     },
-    label: <strong>100°C</strong>,
+    label: <strong>60°C</strong>,
   },
 };
 
 const marks_hum = {
-  0: <strong>0%</strong>,
+  5: <strong>5%</strong>,
   20: '20%',
   40: '40%',
   60: '60%',
   80: '80%',
-  100: {
+  95: {
     style: {
       color: 'red',
     },
-    label: <strong>100%</strong>,
+    label: <strong>95%</strong>,
   },
 };
 
@@ -55,14 +58,13 @@ class App extends Component {
       chartData: {},
       pic: null,
       data: null,
+      tmp_time: 0,
+      hum_time: 0,
       tmp: 0,
       hum: 0,
       r_val: 0,
       g_val: 0,
       b_val: 0,
-    }
-    this.pic = {
-      uri: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/42_Silicon_Valley_Logo.svg'
     }
   }
 
@@ -70,6 +72,7 @@ class App extends Component {
  /*    this.getChartData(); */
     this.initFirebase();
     this.getData();
+    this.getChartData();
   }
 
   async initFirebase() {
@@ -108,23 +111,12 @@ class App extends Component {
       this.setState({
         pic: curr_pic[key],
       })
-    }
+    };
 
     const snapshot_temp = (data) => {
       curr_temp = data.val();
       var key = Object.keys(curr_temp);
-      //console.log(curr_temp[key]);
-      //console.log(data.key);
       this.setState({
-        chartData: {
-          labels: data.key,
-          datasets: [
-            {
-              data: curr_temp[key].toFixed(2),
-            }
-          ],
-          backgroundColor: "rgba(255,0,144,0)",
-        },
         tmp: curr_temp[key].toFixed(2),
         tmp_time: data.key
       });
@@ -133,18 +125,7 @@ class App extends Component {
     const snapshot_hum = (data) => {
       curr_hum = data.val();
       var key = Object.keys(curr_hum);
-      //console.log(curr_hum[key])
-      //console.log(data.key);
       this.setState({
-        chartData: {
-          labels: data.key,
-          datasets: [
-            {
-              data: curr_hum[key].toFixed(2),
-            }
-          ],
-          backgroundColor: "rgba(255,0,144,0)",
-        },
         hum: curr_hum[key].toFixed(2),
         hum_time: data.key,
       });
@@ -153,36 +134,40 @@ class App extends Component {
     box_humid.limitToLast(1).on('child_added', snapshot_hum);
     box_pic.limitToLast(1).on('child_added', snapshot_pic);
   }
-  /* getChartData() {
+
+  getChartData = async () => {
     //ajax call here
+    console.log(this.state.tmp)
     this.setState({
       chartData: {
-        labels: ['Iowa1', 'Taiwan', 'Bay area', 'Washington'],
+        labels: ['1', '2'],
         datasets:[
             {
-                label: 'Population',
-                data: [1222, 4444, 25325, 53252]
+                data: [this.state.tmp]
             }
         ],
         backgroundColor: "rgba(255,0,144,0)",
         }
     });
-  } */
+  }
  
   
   render() {
     //console.log(this.state.chartData)
+    console.log(this.state.tmp);
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Smart Incubator</h1>
+          <img src={mush_logo} className="App-logo" alt="logo" />
+          <div className="brand">mycotronics</div>
+          <hr className="line" />
+          <h1 className="App-title">- Smart Incubator -</h1>
         </header>
         <div className="atmos_sliders">
         <div style={{alignContent: 'left'}} >SET TEMPERATURE</div>
           <Slider
-          min={0}
-          max={100}
+          min={5}
+          max={60}
           defaultValue={30}
           marks={marks}
           onChange={(val) => this.change_val(val, "setTemperature")}  
@@ -191,8 +176,8 @@ class App extends Component {
         <div className="atmos_sliders">
         SET HUMIDITY
           <Slider
-          min={0}
-          max={100}
+          min={5}
+          max={95}
           defaultValue={70}
           marks={marks_hum}
           onChange={(val) => this.change_val(val, "setHumidity")}  
@@ -246,6 +231,7 @@ class App extends Component {
         <Chart chartData={this.state.chartData} />
         <Chart chartData={this.state.chartData} />
       </div>
+  
     );
   }
 }
